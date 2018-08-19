@@ -1,0 +1,4 @@
+package controlers;
+interface AnnotatedClass {
+
+}
