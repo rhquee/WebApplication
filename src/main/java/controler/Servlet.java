@@ -1,4 +1,6 @@
-package controlers;
+package controler;
+
+import model.CacheForAnnotationAndFieldValues;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +15,7 @@ import java.io.PrintWriter;
 public class Servlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String destinyUrl;
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = response.getWriter();
 
@@ -21,7 +24,9 @@ public class Servlet extends HttpServlet {
             try {
                 CacheForAnnotationAndFieldValues cacheForAnnotationAndFieldValues = new CacheForAnnotationAndFieldValues(userName);
                 request.setAttribute("responseString", cacheForAnnotationAndFieldValues.getFieldValue());
-                RequestDispatcher view = request.getRequestDispatcher("/" + cacheForAnnotationAndFieldValues.getAnnotationValue() + ".jsp");
+
+                destinyUrl = "/" + cacheForAnnotationAndFieldValues.getAnnotationValue() + ".jsp";
+                RequestDispatcher view = request.getRequestDispatcher(destinyUrl);
                 view.forward(request, response);
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
@@ -29,7 +34,6 @@ public class Servlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
         String hello = String.format("<h1>Hello, %s </h1>", userName);
         printWriter.print(hello);
     }

@@ -15,8 +15,8 @@
     <p>Enter your name below to allow the site to welcome you</p>
 
     <form name="form" method="post" action="/hello">
-      controlers.Names: <input type="text" name="name" required>
-      <button name="submit">Wyślij</button>
+      Your name is: <input type="text" name="name" required>
+      <button name="submit">OK</button>
     </form>
 
 

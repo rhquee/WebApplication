@@ -1,4 +1,4 @@
-package controlers;
+package model;
 
 import java.lang.reflect.Field;
 
@@ -24,7 +24,7 @@ public class CacheForAnnotationAndFieldValues {
 
     public CacheForAnnotationAndFieldValues(String userName) throws NoSuchFieldException, IllegalAccessException {
         Names names = new Names(); //mój obiekt
-        Class<? extends Names> clazz = names.getClass(); //obiekt Class
+        Class<?> clazz = names.getClass(); //obiekt Class
 //        System.out.println("Klasa: " + clazz.getName());
 
         //wartość pola

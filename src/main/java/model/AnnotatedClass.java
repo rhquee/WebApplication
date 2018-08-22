@@ -1,4 +1,4 @@
-package controlers;
+package model;
 interface AnnotatedClass {
 
 }

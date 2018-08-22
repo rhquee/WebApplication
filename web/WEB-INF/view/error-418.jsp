@@ -3,10 +3,10 @@
 <head>
     <title>418</title>
 </head>
-<body style="text-align: center; background-color: rosybrown">
+<body style="text-align: center; background-color: azure">
 
 <p>Sorry, but your name was Johny. That's why I'm teapot</p>
-<img src="assets/pot.png" width="200" height="200">
+<img src="resources/pot.png" width="200" height="200">
 
 </body>
 </html>

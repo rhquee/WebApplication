@@ -1,4 +1,4 @@
-package controlers;
+package model;
 
 class Names implements AnnotatedClass {
     @Test(value = "halView")

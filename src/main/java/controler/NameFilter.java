@@ -1,10 +1,9 @@
-package filters;
+package controler;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebFilter(filterName = "NameFilter", servletNames = "Servlet")
 public class NameFilter implements Filter {
