@@ -25,7 +25,7 @@ public class Servlet extends HttpServlet {
                 CacheForAnnotationAndFieldValues cacheForAnnotationAndFieldValues = new CacheForAnnotationAndFieldValues(userName);
                 request.setAttribute("responseString", cacheForAnnotationAndFieldValues.getFieldValue());
 
-                destinyUrl = "/" + cacheForAnnotationAndFieldValues.getAnnotationValue() + ".jsp";
+                destinyUrl = "/WEB-INF/view/" + cacheForAnnotationAndFieldValues.getAnnotationValue() + ".jsp";
                 RequestDispatcher view = request.getRequestDispatcher(destinyUrl);
                 view.forward(request, response);
             } catch (NoSuchFieldException e) {

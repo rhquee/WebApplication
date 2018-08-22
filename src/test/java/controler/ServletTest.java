@@ -61,23 +61,19 @@ public class ServletTest {
     @Test
     public void doPost_shouldReturnHalViewWithContentForHal() throws Exception {
         //given
-        Servlet spyServlet = spy(Servlet.class);
-        doReturn(mockedServletContext).when(spyServlet).getServletContext();
-        doReturn(mockedDispatcher).when(mockedServletContext).getRequestDispatcher("/WEB-INF/halView.jsp");
-
+        Servlet servlet = new Servlet();
         when(mockedHttpServletRequest.getParameter("name")).thenReturn("hal");
         when(mockedHttpServletResponse.getWriter()).thenReturn(mockedPrintWriter);
+        when(mockedHttpServletRequest.getRequestDispatcher("/WEB-INF/view/halView.jsp")).thenReturn(mockedDispatcher);
 
         //when
-        spyServlet.doPost(mockedHttpServletRequest, mockedHttpServletResponse);
+        servlet.doPost(mockedHttpServletRequest, mockedHttpServletResponse);
 
         //then
-        verify(spyServlet).getServletContext();
-        verify(mockedServletContext).getRequestDispatcher("/WEB-INF/halView.jsp");
-
+//        verify(servlet).getServletContext();
         verify(mockedHttpServletResponse).setContentType("text/html;charset=UTF-8");
+        verify(mockedServletContext).getRequestDispatcher("/WEB-INF/view/halView.jsp");
         verify(mockedDispatcher, times(1)).forward(mockedHttpServletRequest, mockedHttpServletResponse);
-
         verify(mockedPrintWriter).print("My mind is going. I can feel it");
 
     }

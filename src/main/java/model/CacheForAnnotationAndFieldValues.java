@@ -24,7 +24,8 @@ public class CacheForAnnotationAndFieldValues {
 
     public CacheForAnnotationAndFieldValues(String userName) throws NoSuchFieldException, IllegalAccessException {
         Names names = new Names(); //mój obiekt
-        Class<?> clazz = names.getClass(); //obiekt Class
+//        Class<?> clazz = names.getClass(); //obiekt Class
+        Class<? extends Names> clazz = names.getClass();
 //        System.out.println("Klasa: " + clazz.getName());
 
         //wartość pola
