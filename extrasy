@@ -1,0 +1,68 @@
+*** MVC np. http://websystique.com/wp-content/uploads/2015/09/Spring4MVCAngularJSCRUDExample_img0.png
+
+*** Refleksje
+/KLASA
+        public class MyClass {
+            private int fieldA;
+            private String fieldB;
+        }
+
+/Dostać się do wszytskich pól lub pola w klasie przez klasę
+        Class<MyClass> clazz = MyClass.class;
+        Field[] fields = clazz.getDeclaredFields(); //tablica bo tak zwraca metoda refleksyjna getDeclaredFields()
+        Field a = clazz.getDeclaredField("fieldA");
+
+/Na obiekcie Field
+        MyClass myClass = new MyClass(); // to nasz obiekt
+        Class<MyClass> clazz = myClass.getClass(); // obiekt Class
+        Field a = clazz.getDeclaredField("fieldA"); // Mamy pole
+        String value = a.get(myClass); //wziąć wartość pola
+        a.set(myClass, 20); //ustawić wartość pola
+        a.getType(); //poznać typ
+
+/Jeśli zmienna jest niestatyczna to potrzeba obiektu klasy
+        MyClass myClass = new MyClass(); // to nasz obiekt
+        Class<MyClass> clazz = myClass.getClass(); // obiekt Class
+        Field a = clazz.getDeclaredField("fieldA"); // Mamy pole
+        String value = a.get(myClass); // Mamy wartość dla naszego obiektu
+
+
+
+
+*** Adnotacja @controler. Test
+https://o7planning.org/en/10197/java-annotations-tutorial#a18827
+
+1.
+- Adnotacje Java są używane do dostarczania metadanych dla kodu Java.
+- Adnotacje, jako meta-dane nie wpływają bezpośrednio na wykonanie kodu (chociaż niektóre typy adnotacji mogą być
+w rzeczywistości użyte do tego celu).
+- Adnotacje Java zostały dodane do Java z Java 5.
+
+2. Własna adnotacja
+
+INSTRUKCJA KROK PO KROKU:
+1. Stworzyć klasę @interface model.Names.java. Java Reflection can identify things like Class, field, method annotated by some Annotation. And of course it can recognize only Annotation with  @Retention(RetentionPolicy.RUNTIME)
+
+
+Użycie @interface to słowo-klucz deklaracji adnotacji. Ta adnotacja jest dość podobna do interfejsu - adnotacja może
+zawierać (nie musi) w sobie elementy.
+
+Cechy elementów adnotacji:
+- Brak treści funkcji
+- Nie ma parametru funkcyjnego
+- Deklaracja zwracająca musi być określonym typem:
+-- Typ pierwotny (boolean, int, float, ...)
+-- Enum
+-- Adnotacja
+-- Klasa (np: String.class)
+- Element może mieć wartości domyślne
+
+Adnotację można stosować na:
+TYPE - klasa, interfejs (w tym typ opisu) lub deklaracja enum
+FIELD - deklaracja pola (zawiera stałe enum)
+METHOD - deklaracja metody
+PARAMETER - deklaracja parametru
+CONSTRUCTOR - deklaracja konstruktora
+LOCAL_VARIABLE - lokalny deklaracja zmiennej
+ANNOTATION_TYPE - deklaracja adnotacji
+PACKAGE - deklaracja pakietu

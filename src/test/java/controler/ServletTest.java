@@ -70,12 +70,9 @@ public class ServletTest {
         servlet.doPost(mockedHttpServletRequest, mockedHttpServletResponse);
 
         //then
-//        verify(servlet).getServletContext();
         verify(mockedHttpServletResponse).setContentType("text/html;charset=UTF-8");
-        verify(mockedServletContext).getRequestDispatcher("/WEB-INF/view/halView.jsp");
         verify(mockedDispatcher, times(1)).forward(mockedHttpServletRequest, mockedHttpServletResponse);
-        verify(mockedPrintWriter).print("My mind is going. I can feel it");
-
+        verify(mockedHttpServletRequest).getRequestDispatcher("/WEB-INF/view/halView.jsp");
+        verify(mockedHttpServletRequest).setAttribute("responseString", "My mind is going. I can feel it");
     }
-
-}
+    }
