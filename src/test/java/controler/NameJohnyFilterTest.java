@@ -17,7 +17,7 @@ Test:
 -- łańcuch idzie dalej
  */
 
-public class NameFilterTest {
+public class NameJohnyFilterTest {
 
     @Mock
     ServletRequest mockedServletRequest = mock(ServletRequest.class);
@@ -32,8 +32,8 @@ public class NameFilterTest {
         when(mockedServletRequest.getParameter("name")).thenReturn("johny");
 
         //when
-        NameFilter nameFilter = new NameFilter();
-        nameFilter.doFilter(mockedServletRequest, mockedServletResponse , mockedFilterChain);
+        NameJohnyFilter nameJohnyFilter = new NameJohnyFilter();
+        nameJohnyFilter.doFilter(mockedServletRequest, mockedServletResponse , mockedFilterChain);
 
         //then
         verifyZeroInteractions(mockedFilterChain);
@@ -48,8 +48,8 @@ public class NameFilterTest {
         when(mockedServletRequest.getParameter("name")).thenReturn("zosia");
 
         //when
-        NameFilter nameFilter = new NameFilter();
-        nameFilter.doFilter(mockedServletRequest, mockedServletResponse , mockedFilterChain);
+        NameJohnyFilter nameJohnyFilter = new NameJohnyFilter();
+        nameJohnyFilter.doFilter(mockedServletRequest, mockedServletResponse , mockedFilterChain);
 
         //then
         verify(mockedFilterChain).doFilter(mockedServletRequest, mockedServletResponse);
