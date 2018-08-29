@@ -20,32 +20,35 @@ public class NameCatcherTest {
     HttpServletResponse mockedServletResponse = mock(HttpServletResponse.class);
     @Mock
     FilterChain mockedFilterChain = mock(FilterChain.class);
-
-    @Mock
-    NameDavidFilter mockedDavidFilter = mock(NameDavidFilter.class);
     @Mock
     CacheForAnnotationAndFieldValues mockedCacheForAnnotationAndFieldValues = mock(CacheForAnnotationAndFieldValues.class);
-    @Mock
-    JSPDispatcher mockedJspDispatcher = mock(JSPDispatcher.class);
     @Mock
     RequestDispatcher mockedDispatcher = mock(RequestDispatcher.class);
 
     @Test
-    public void doFilter_shouldInvokeDoFilterForGivenNameMethod() throws Exception {
+    public void doFilter_shouldReturnCorrectResult() throws Exception {
         //given
         when(mockedServletRequest.getParameter("name")).thenReturn("david");
-        when(mockedDavidFilter.getName()).thenReturn("david");
+        when(mockedServletRequest.getRequestDispatcher("/WEB-INF/view/davidView.jsp")).thenReturn(mockedDispatcher);
         when(mockedCacheForAnnotationAndFieldValues.getAnnotationValue()).thenReturn("davidView");
         when(mockedCacheForAnnotationAndFieldValues.getFieldValue()).thenReturn("David here");
-        when(mockedServletRequest.getRequestDispatcher("/WEB-INF/view/davidView.jsp")).thenReturn(mockedDispatcher);
+
         //when
         NameCatcher spyNameCatcher = spy(NameCatcher.class);
+        when(spyNameCatcher.getName()).thenReturn("david");
         spyNameCatcher.doFilter(mockedServletRequest, mockedServletResponse, mockedFilterChain);
+
         //then
+        /*
+        * - czy się wywołała metoda doFilterForGivenName
+        * - czy łańcuch poszedł dalej
+        * - czy został wykonany forward
+        * - czy odpowiedź jest pod odpowiednim URL
+        * - czy odpowiedź ma odpowiedni content
+         */
         verify(spyNameCatcher, times(1)).doFilterForGivenName(mockedServletRequest, mockedServletResponse, "david");
         verify(mockedFilterChain).doFilter(mockedServletRequest, mockedServletResponse);
         verify(mockedDispatcher, times(1)).forward(mockedServletRequest, mockedServletResponse);
-        verify(mockedJspDispatcher, times(1)).dispatchToDestinyURL(mockedServletRequest, mockedServletResponse, mockedCacheForAnnotationAndFieldValues);
         verify(mockedServletRequest).getRequestDispatcher("/WEB-INF/view/davidView.jsp");
         verify(mockedServletRequest).setAttribute("responseString", "David here");
 

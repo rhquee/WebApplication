@@ -1,3 +1,5 @@
+*** Forward sprawia tylko, że inny serwlet przetwarza żądanie!!! Żeby przekierowało (URL) to redirect
+
 *** MVC np. http://websystique.com/wp-content/uploads/2015/09/Spring4MVCAngularJSCRUDExample_img0.png
 
 *** Refleksje
