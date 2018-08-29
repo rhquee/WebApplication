@@ -1,0 +1,17 @@
+body {
+    text-align: center;
+    background-color: grey;
+}
+p {
+    font-family: Verdana;
+    font-color: #2e2e1f;
+}
+h3 {
+    font-family: Verdana;
+    font-color: #000;
+}
+h5 {
+    font-family: Elephant;
+    font-color: #2e2e1f;
+    text-align: right;
+}

@@ -13,11 +13,7 @@ import java.io.IOException;
 @WebFilter(filterName = "NameDavidFilter", servletNames = "Servlet")
 public class NameDavidFilter extends NameCatcher implements Filter {
 
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String userName = servletRequest.getParameter("name");
-
-        if (userName.equalsIgnoreCase("david")) {
-          doFilterForGivenName(servletRequest, servletResponse, filterChain, userName);
-        }
+    protected String getName() {
+        return "david";
     }
 }

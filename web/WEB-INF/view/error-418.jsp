@@ -2,11 +2,11 @@
 <html>
 <head>
     <title>418</title>
+    <link rel="stylesheet" type="text/css" href="/resources/web.css">
 </head>
-<body style="text-align: center; background-color: azure">
 
-<p>Sorry, but your name was Johny. That's why I'm teapot</p>
-<img src="resources/pot.png" width="200" height="200">
-
+<body>
+    <p>Sorry, but your name was Johny. That's why I'm teapot</p>
+    <img src="resources/pot.png" width="50" height="50" alt="niewczytany czajnik">
 </body>
 </html>

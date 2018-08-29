@@ -7,18 +7,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
+<head>
     <title>Hello You!</title>
-  </head>
-  <body>
+    <link rel="stylesheet" type="text/css" href="/resources/web.css">
+</head>
 
-    <p>Enter your name below to allow the site to welcome you</p>
-
-    <form name="form" method="post" action="/hello">
-      Your name is: <input type="text" name="name" required>
-      <button name="submit">OK</button>
-    </form>
-
-
-  </body>
+<body>
+  <p>Enter your name below to allow the site to welcome you</p>
+  <form name="form" method="post" action="/hello">
+      <p>
+        Your name is:
+        <input type="text" name="name" required>
+        <button name="submit">OK</button>
+      </p>
+  </form>
+</body>
 </html>
