@@ -26,7 +26,7 @@ public class NameCatcherTest {
     RequestDispatcher mockedDispatcher = mock(RequestDispatcher.class);
 
     @Test
-    public void doFilter_shouldReturnCorrectResult() throws Exception {
+    public void doFilter_shouldReturnCorrectResultForDavid() throws Exception {
         //given
         when(mockedServletRequest.getParameter("name")).thenReturn("david");
         when(mockedServletRequest.getRequestDispatcher("/WEB-INF/view/davidView.jsp")).thenReturn(mockedDispatcher);
@@ -51,6 +51,23 @@ public class NameCatcherTest {
         verify(mockedDispatcher, times(1)).forward(mockedServletRequest, mockedServletResponse);
         verify(mockedServletRequest).getRequestDispatcher("/WEB-INF/view/davidView.jsp");
         verify(mockedServletRequest).setAttribute("responseString", "David here");
+    }
 
+    @Test
+    public void doFilter_shouldReturnCorrectResultForZosia() throws Exception {
+        //given
+        when(mockedServletRequest.getParameter("name")).thenReturn("zosia");
+
+        //when
+        NameCatcher spyNameCatcher = spy(NameCatcher.class);
+        spyNameCatcher.doFilter(mockedServletRequest, mockedServletResponse, mockedFilterChain);
+
+        //then
+        /*
+        * - czy się nie wywoła metoda doFilterForGivenName
+        * - czy łańcuch poszedł dalej
+         */
+        verify(spyNameCatcher, times(0)).doFilterForGivenName(mockedServletRequest, mockedServletResponse, "david");
+        verify(mockedFilterChain).doFilter(mockedServletRequest, mockedServletResponse);
     }
 }

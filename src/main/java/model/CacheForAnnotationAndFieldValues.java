@@ -20,19 +20,16 @@ public class CacheForAnnotationAndFieldValues {
     public CacheForAnnotationAndFieldValues(String userName) throws NoSuchFieldException, IllegalAccessException {
         Names names = new Names(); //mój obiekt
         Class<?> clazz = names.getClass(); //obiekt Class
-        System.out.println("Klasa: " + clazz.getName());
 
         //wartość pola
         Field field = clazz.getDeclaredField(userName); // pole
         field.setAccessible(true); //bo prywatne
         setFieldValue((String) field.get(names));
-        System.out.println("FieldValue: " + getFieldValue());
 
         //wartość adnotacji
         if (field.isAnnotationPresent(Test.class)) {
             Test annotation = field.getAnnotation(Test.class);
             setAnnotationValue(annotation.value());
-            System.out.println("AnnotationValue: " + getAnnotationValue());
         }
     }
 }
