@@ -2,7 +2,9 @@ package controler;
 
 import model.CacheForAnnotationAndFieldValues;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
@@ -12,26 +14,25 @@ import javax.servlet.http.HttpServletResponse;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.mock;
 
+@RunWith(MockitoJUnitRunner.class)
 public class NameCatcherTest {
-
     @Mock
-    ServletRequest mockedServletRequest = mock(ServletRequest.class);
+    ServletRequest mockedServletRequest;
     @Mock
-    HttpServletResponse mockedServletResponse = mock(HttpServletResponse.class);
+    HttpServletResponse mockedServletResponse;
     @Mock
-    FilterChain mockedFilterChain = mock(FilterChain.class);
+    FilterChain mockedFilterChain;
     @Mock
-    CacheForAnnotationAndFieldValues mockedCacheForAnnotationAndFieldValues = mock(CacheForAnnotationAndFieldValues.class);
+    CacheForAnnotationAndFieldValues mockedCacheForAnnotationAndFieldValues;
     @Mock
-    RequestDispatcher mockedDispatcher = mock(RequestDispatcher.class);
+    RequestDispatcher mockedDispatcher;
 
     @Test
     public void doFilter_shouldReturnCorrectResultForDavid() throws Exception {
         //given
         when(mockedServletRequest.getParameter("name")).thenReturn("david");
         when(mockedServletRequest.getRequestDispatcher("/WEB-INF/view/davidView.jsp")).thenReturn(mockedDispatcher);
-        when(mockedCacheForAnnotationAndFieldValues.getAnnotationValue()).thenReturn("davidView");
-        when(mockedCacheForAnnotationAndFieldValues.getFieldValue()).thenReturn("David here");
+        mockedCacheForAnnotationAndFieldValues = new CacheForAnnotationAndFieldValues("david");
 
         //when
         NameCatcher spyNameCatcher = spy(NameCatcher.class);
@@ -46,10 +47,8 @@ public class NameCatcherTest {
         * - czy odpowiedź jest pod odpowiednim URL
         * - czy odpowiedź ma odpowiedni content
          */
-        verify(spyNameCatcher, times(1)).doFilterForGivenName(mockedServletRequest, mockedServletResponse, "david");
         verify(mockedFilterChain).doFilter(mockedServletRequest, mockedServletResponse);
-        verify(mockedDispatcher, times(1)).forward(mockedServletRequest, mockedServletResponse);
-        verify(mockedServletRequest).getRequestDispatcher("/WEB-INF/view/davidView.jsp");
+        verify(mockedDispatcher).forward(mockedServletRequest, mockedServletResponse);
         verify(mockedServletRequest).setAttribute("responseString", "David here");
     }
 

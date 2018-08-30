@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 
 @WebFilter(filterName = "NameDavidFilter", servletNames = "Servlet")
-public class NameDavidFilter extends NameCatcher implements Filter {
+public class NameDavidFilter extends NameCatcher {
 
     protected String getName() {
         return "david";

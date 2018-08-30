@@ -6,7 +6,7 @@ import javax.servlet.*;
 import java.io.IOException;
 
 
-public abstract class NameCatcher {
+public abstract class NameCatcher implements Filter {
 
     protected abstract String getName();
 
@@ -25,10 +25,8 @@ public abstract class NameCatcher {
             servletRequest.setAttribute("responseString", cacheForAnnotationAndFieldValues.getFieldValue());
 
             JSPDispatcher.dispatchToDestinyURL(servletRequest, servletResponse, cacheForAnnotationAndFieldValues);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

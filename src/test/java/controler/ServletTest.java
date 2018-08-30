@@ -38,8 +38,7 @@ public class ServletTest {
         servlet.doPost(mockedHttpServletRequest, mockedHttpServletResponse);
 
         //then
-        verify(mockedDispatcher, times(1)).forward(mockedHttpServletRequest, mockedHttpServletResponse);
-        verify(mockedHttpServletRequest).getRequestDispatcher("/WEB-INF/view/hello.jsp");
+        verify(mockedDispatcher).forward(mockedHttpServletRequest, mockedHttpServletResponse);
         verify(mockedHttpServletRequest).setAttribute("name", "Zosia");
     }
 }

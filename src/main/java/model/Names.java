@@ -1,6 +1,6 @@
 package model;
 
-class Names implements AnnotatedClass {
+class Names {
     @Test(value = "halView")
     private String hal = "My mind is going. I can feel it";
 
