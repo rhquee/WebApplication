@@ -1,4 +1,4 @@
-package model;
+package service;
 
 class Names {
     @Test(value = "halView")

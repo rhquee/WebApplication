@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <p>Sorry, but your name was Johny. That's why I'm teapot</p>
+    <p>${msg}</p>
     <img src="resources/pot.png" width="50" height="50" alt="niewczytany czajnik">
 </body>
 </html>
