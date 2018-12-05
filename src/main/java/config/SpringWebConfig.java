@@ -15,15 +15,8 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc //<mvc:annotation-driven />
 @Configuration
-@ComponentScan ({"webController"}) //tu gdzie kontrolery?
+@ComponentScan ({"webController"}) //tu gdzie kontrolery
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
-
-    //https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/ResourceHandlerRegistry.html
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/*")
-                .addResourceLocations("/resources/");
-    }
 
     @Bean
     public InternalResourceViewResolver viewResolver() {

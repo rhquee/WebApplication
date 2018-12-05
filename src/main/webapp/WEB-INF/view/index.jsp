@@ -17,7 +17,7 @@
   <form name="form" method="post" action="/hello">
       <p>
         Your name is:
-        <input type="text" name="name" required>
+        <input type="text" name="name">
         <button name="submit">OK</button>
       </p>
   </form>

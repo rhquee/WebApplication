@@ -7,6 +7,6 @@
 
 <body>
     <p>${msg}</p>
-    <img src="resources/pot.png" width="50" height="50" alt="niewczytany czajnik">
+    <img src="/resources/pot.png" width="50" height="50" alt="niewczytany czajnik">
 </body>
 </html>
