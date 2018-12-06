@@ -18,6 +18,13 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan ({"webController"}) //tu gdzie kontrolery
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 
+    //style
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
+    }
+
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver
