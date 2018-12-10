@@ -1,6 +1,6 @@
-package service;
+package util;
 
-class Names {
+public class Names {
     @Test(value = "halView")
     private String hal = "My mind is going. I can feel it";
 

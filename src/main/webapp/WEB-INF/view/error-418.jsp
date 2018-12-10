@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <p>${msg}</p>
+    <p>${responseString}</p>
     <img src="/resources/pot.png" width="50" height="50" alt="niewczytany czajnik">
 </body>
 </html>

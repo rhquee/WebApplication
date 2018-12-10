@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String showIndexPage() {
+    public String resolveIndexPage() {
         System.out.println("index index yo");
         return "index";
     }

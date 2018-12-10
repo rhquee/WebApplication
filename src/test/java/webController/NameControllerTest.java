@@ -47,16 +47,16 @@ public class NameControllerTest {
 
 
     @Test
-    public void resolveView_showHelloPageWithGreeting() throws Exception {
+    public void resolveNameView_showHelloPageForGivenName() throws Exception {
         this.mockMvc.perform(post("/hello")
-                .param("name", "Popopop"))
+                .param("name", "Zenon"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("hello"))
-                .andExpect(model().attribute("name", "Pp"));
+                .andExpect(model().attribute("name", "Zenon"));
     }
 
     @Test
-    public void resolveView_showHalPage() throws Exception {
+    public void resolveNameView_showHalPageForHal() throws Exception {
         this.mockMvc.perform(post("/hello")
                 .param("name", "hal"))
                 .andExpect(status().isOk())
@@ -64,20 +64,30 @@ public class NameControllerTest {
                 .andExpect(model().attribute("responseString", "My mind is going. I can feel it"));
     }
 
+    @Test
+    public void resolveView_showHalPageForDavid() throws Exception {
+        this.mockMvc.perform(post("/hello")
+                .param("name", "david"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("davidView"))
+                .andExpect(model().attribute("responseString", "David here"));
+    }
 
+    @Test
+    public void resolveView_show418ErrorPageForJohny() throws Exception {
+        this.mockMvc.perform(post("/hello")
+                .param("name", "johny"))
+                .andExpect(status().is(418))
+                .andExpect(view().name("error-418"))
+                .andExpect(model().attribute("responseString", "Hi, I'm teapot"));
+    }
 
-
-
-
-
-
-
-
-//    @Test
-//    public void givenWAC_whenServletContext_thenItProvidesGreetController() {
-//        final ServletContext servletContext = webApplicationContext.getServletContext();
-//        Assert.assertNotNull(servletContext);
-//        Assert.assertTrue(servletContext instanceof MockServletContext);
-//        Assert.assertNotNull(webApplicationContext.getBean("nameController"));
-//    }
+    @Test
+    public void resolveNameView_showHelloPageForUnnamedGetMethod() throws Exception {
+        this.mockMvc.perform(get("/hello")
+                .param("name", "nieznajomy"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("hello"))
+                .andExpect(model().attribute("name", "nieznajomy"));
+    }
 }

@@ -27,7 +27,7 @@ public class NameController {
     }
 
     @RequestMapping(value = "/hello", method = RequestMethod.POST)
-    public ModelAndView resolveView(@RequestParam String name)
+    public ModelAndView resolveNameView(@RequestParam String name)
             throws IllegalAccessException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("name", name);
@@ -39,11 +39,21 @@ public class NameController {
         if ("johny".equalsIgnoreCase(name)) {
             modelAndView.setStatus(HttpStatus.I_AM_A_TEAPOT);
             modelAndView.setViewName("error-418");
-            modelAndView.addObject("msg", teapotService.getMessage());
+            modelAndView.addObject("responseString", teapotService.getMessage());
         }
         if (StringUtils.isEmpty(modelAndView.getViewName())) {
             modelAndView.setViewName("hello");
         }
         return modelAndView;
     }
-}
+
+    @RequestMapping(value = "/hello", method = RequestMethod.GET)
+    public ModelAndView resolveNameView()
+            throws IllegalAccessException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("name", "nieznajomy");
+        modelAndView.setViewName("hello");
+        return modelAndView;
+        }
+
+    }

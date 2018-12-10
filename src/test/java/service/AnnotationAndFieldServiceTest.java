@@ -20,20 +20,16 @@ import static org.junit.Assert.*;
 @WebAppConfiguration
 @ContextConfiguration(classes = {SpringRootConfig.class, SpringWebConfig.class})
 public class AnnotationAndFieldServiceTest {
+
     @org.junit.Test
     public void resolveView() throws Exception {
-
-        String expected = "halView;";
-
+        String expected = "halView";
         String result = new AnnotationAndFieldService().resolveView("hal");
-
         assertEquals(expected, result);
-
     }
 
     @Test
     public void resolveResponseString() throws Exception {
-
         String expected = "My mind is going. I can feel it";
         String result = new AnnotationAndFieldService().resolveResponseString("hal");
         assertEquals(expected, result);

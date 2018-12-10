@@ -43,7 +43,7 @@ w rzeczywistości użyte do tego celu).
 2. Własna adnotacja
 
 INSTRUKCJA KROK PO KROKU:
-1. Stworzyć klasę @interface service.Names.java. Java Reflection can identify things like Class, field, method annotated by some Annotation. And of course it can recognize only Annotation with  @Retention(RetentionPolicy.RUNTIME)
+1. Stworzyć klasę @interface util.Names.java. Java Reflection can identify things like Class, field, method annotated by some Annotation. And of course it can recognize only Annotation with  @Retention(RetentionPolicy.RUNTIME)
 
 
 Użycie @interface to słowo-klucz deklaracji adnotacji. Ta adnotacja jest dość podobna do interfejsu - adnotacja może
