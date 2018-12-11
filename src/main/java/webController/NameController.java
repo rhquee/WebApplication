@@ -41,9 +41,6 @@ public class NameController {
             modelAndView.setViewName("error-418");
             modelAndView.addObject("responseString", teapotService.getMessage());
         }
-        if (StringUtils.isEmpty(modelAndView.getViewName())) {
-            modelAndView.setViewName("hello");
-        }
         return modelAndView;
     }
 
