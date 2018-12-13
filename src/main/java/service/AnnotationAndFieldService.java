@@ -1,7 +1,8 @@
 package service;
 
 import org.springframework.stereotype.Service;
-import util.Names;
+import util.EmptyStringException;
+import util.PersonalDataInterface;
 import util.Test;
 
 import java.lang.reflect.Field;
@@ -9,29 +10,36 @@ import java.lang.reflect.Field;
 @Service
 public class AnnotationAndFieldService {
 
-    private Names names = new Names(); //mój obiekt
-    private Class<?> clazz = names.getClass(); //obiekt Class
-
-    public String resolveView(String userName) {
-        //wartość pola
+    public String resolveTestAnnotationValueFromField(String fieldName, PersonalDataInterface fiutek) throws EmptyStringException {
+        Class<?> clazz = fiutek.getClass(); //obiekt Class
         try {
-            Field field = clazz.getDeclaredField(userName); // pole
+            if (fieldName.equals("")) {
+                throw new EmptyStringException("your string is empty");
+            }
+            Field field = clazz.getDeclaredField(fieldName); // pole
             field.setAccessible(true); //bo prywatne
-
             //wartość adnotacji
-            return field.isAnnotationPresent(Test.class)
-                    ? field.getAnnotation(Test.class).value()
-                    : "";
+//            if (field.isAnnotationPresent(Test.class)) {
+//                if (field.getAnnotation(Test.class).value().equals("")) {
+//                    throw new EmptyStringException("lol");
+//                }
+//            }
+            return field.getAnnotation(Test.class).value();
+        } catch (EmptyStringException e) {
+            return "string is empty";
         } catch (NoSuchFieldException e) {
-            return "";
+            return "class doesn't have a field of a specified name";
+        } catch (NullPointerException e) {
+            return "not existing field name";
         }
     }
 
-    public String resolveResponseString(String userName) throws IllegalAccessException {
+    public String resolveNamesFieldValue(String fieldName, PersonalDataInterface fiutek) throws IllegalAccessException {
+        Class<?> clazz = fiutek.getClass(); //obiekt Class
         try {
-            Field field = clazz.getDeclaredField(userName); // pole
+            Field field = clazz.getDeclaredField(fieldName); // pole
             field.setAccessible(true); //bo prywatne
-            return (String)field.get(names);
+            return (String) field.get(fiutek);
         } catch (NoSuchFieldException e) {
             return "";
         }

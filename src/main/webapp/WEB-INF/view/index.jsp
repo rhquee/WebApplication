@@ -13,14 +13,18 @@
 </head>
 
 <body>
-  <p>Enter your name below to allow the site to welcome you</p>
-  <form name="form" method="post" action="/hello">
-      <p>
+<p>Enter your name below to allow the site to welcome you</p>
+<form name="form" method="post" action="/hello">
+    <p>
         Your name is:
         <input type="text" name="name" required>
+        <select name="type">
+            <option value="name">This is my name</option>
+            <option value="surname">This is my surname</option>
+        </select>
         <button name="submit">OK</button>
-      </p>
-  </form>
+    </p>
+</form>
 
 </body>
 </html>

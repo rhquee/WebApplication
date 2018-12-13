@@ -1,15 +1,16 @@
 package webController;
 
-import com.sun.istack.internal.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import service.AnnotationAndFieldService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import service.TeapotService;
+import util.EmptyStringException;
+import util.Names;
+import util.PersonalDataInterface;
+import util.Surnames;
 
 /**
  * Created by kfrak on 04.12.2018.
@@ -27,20 +28,26 @@ public class NameController {
     }
 
     @RequestMapping(value = "/hello", method = RequestMethod.POST)
-    public ModelAndView resolveNameView(@RequestParam String name)
-            throws IllegalAccessException {
+    public ModelAndView resolveNameView(
+            @RequestParam String name,
+            @RequestParam String type)
+            throws IllegalAccessException, EmptyStringException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("name", name);
 
         if ("hal".equalsIgnoreCase(name) || "david".equalsIgnoreCase(name)) {
-            modelAndView.setViewName(annotationAndFieldValues.resolveView(name));
-            modelAndView.addObject("responseString", annotationAndFieldValues.resolveResponseString(name));
+            PersonalDataInterface typeOfData = type.equals("name") ? new Names() : new Surnames();
+            modelAndView.setViewName(annotationAndFieldValues.resolveTestAnnotationValueFromField(name, typeOfData));
+            modelAndView.addObject("responseString", annotationAndFieldValues.resolveNamesFieldValue(name, typeOfData));
         }
+
         if ("johny".equalsIgnoreCase(name)) {
             modelAndView.setStatus(HttpStatus.I_AM_A_TEAPOT);
             modelAndView.setViewName("error-418");
             modelAndView.addObject("responseString", teapotService.getMessage());
+//            request.setAttribute("responseString", teapotService.getMessage());
         }
+
         return modelAndView;
     }
 
@@ -51,6 +58,5 @@ public class NameController {
         modelAndView.addObject("name", "nieznajomy");
         modelAndView.setViewName("hello");
         return modelAndView;
-        }
-
     }
+}
