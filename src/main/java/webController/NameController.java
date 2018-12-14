@@ -27,6 +27,15 @@ public class NameController {
         this.teapotService = teapotService;
     }
 
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public ModelAndView resolveIndexView()
+            throws IllegalAccessException {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
+
+
     @RequestMapping(value = "/hello", method = RequestMethod.POST)
     public ModelAndView resolveNameView(
             @RequestParam String name,

@@ -10,13 +10,13 @@ import java.lang.reflect.Field;
 @Service
 public class AnnotationAndFieldService {
 
-    public String resolveTestAnnotationValueFromField(String fieldName, PersonalDataInterface fiutek) throws EmptyStringException {
-        Class<?> clazz = fiutek.getClass(); //obiekt Class
+    public String resolveTestAnnotationValueFromField(String inputName, PersonalDataInterface personalDataInterface) throws EmptyStringException {
+        Class<?> clazz = personalDataInterface.getClass(); //obiekt Class
         try {
-            if (fieldName.equals("")) {
+            if (inputName.equals("")) {
                 throw new EmptyStringException("your string is empty");
             }
-            Field field = clazz.getDeclaredField(fieldName); // pole
+            Field field = clazz.getDeclaredField(inputName); // pole
             field.setAccessible(true); //bo prywatne
             //wartość adnotacji
 //            if (field.isAnnotationPresent(Test.class)) {
@@ -25,8 +25,8 @@ public class AnnotationAndFieldService {
 //                }
 //            }
             return field.getAnnotation(Test.class).value();
-        } catch (EmptyStringException e) {
-            return "string is empty";
+//        } catch (EmptyStringException e) {
+//            return "string is empty";
         } catch (NoSuchFieldException e) {
             return "class doesn't have a field of a specified name";
         } catch (NullPointerException e) {
@@ -34,14 +34,16 @@ public class AnnotationAndFieldService {
         }
     }
 
-    public String resolveNamesFieldValue(String fieldName, PersonalDataInterface fiutek) throws IllegalAccessException {
-        Class<?> clazz = fiutek.getClass(); //obiekt Class
+    public String resolveNamesFieldValue(String fieldName, PersonalDataInterface personalDataInterface) throws IllegalAccessException {
+        Class<?> clazz = personalDataInterface.getClass(); //obiekt Class
         try {
             Field field = clazz.getDeclaredField(fieldName); // pole
             field.setAccessible(true); //bo prywatne
-            return (String) field.get(fiutek);
+            return (String) field.get(personalDataInterface);
         } catch (NoSuchFieldException e) {
-            return "";
+            return "field doesn't have an annotation of a specified name";
+        } catch (NullPointerException e){
+            return "not existing field value";
         }
     }
 }
