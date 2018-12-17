@@ -45,14 +45,6 @@ public class NameControllerTest {
     }
 
     @Test
-    public void checkIfContextIsLoadedAndAttachedAndIfBeanExists() {
-        ServletContext servletContext = webApplicationContext.getServletContext();
-        Assert.assertNotNull(servletContext); //czy wac załadowany prawidłowo
-        Assert.assertTrue(servletContext instanceof MockServletContext); //right servletContext is being attached
-        Assert.assertNotNull(webApplicationContext.getBean("nameController")); //nameController bean exists in the web context – which ensures that spring beans are loaded properly.
-    }
-
-    @Test
     public void resolveNameView_showHelloPageForGivenName() throws Exception {
         this.mockMvc.perform(post("/hello")
                 .param("name", "Zenon")
