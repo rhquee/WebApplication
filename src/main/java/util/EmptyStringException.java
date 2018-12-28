@@ -4,7 +4,7 @@ package util;
  * Created by kfrak on 13.12.2018.
  */
 public class EmptyStringException extends Exception {
-    public EmptyStringException(String message) {
-        super(message);
+    public EmptyStringException() {
+        super("empty string error");
     }
 }

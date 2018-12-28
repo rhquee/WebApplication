@@ -2,15 +2,15 @@ package webController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import service.AnnotationAndFieldService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import service.TeapotService;
 import util.EmptyStringException;
-import util.Names;
 import util.PersonalDataInterface;
-import util.Surnames;
+import webController.redirectStrategy.RedirectStrategy;
+
+import java.util.List;
 
 /**
  * Created by kfrak on 04.12.2018.
@@ -20,6 +20,8 @@ public class NameController {
 
     private final AnnotationAndFieldService annotationAndFieldValues;
     private final TeapotService teapotService;
+    @Autowired
+    private List<RedirectStrategy> strategies;
 
     @Autowired
     public NameController(AnnotationAndFieldService annotationAndFieldValues, TeapotService teapotService) {
@@ -39,22 +41,18 @@ public class NameController {
     @RequestMapping(value = "/hello", method = RequestMethod.POST)
     public ModelAndView resolveNameView(
             @RequestParam String name,
-            @RequestParam String type)
+            @RequestParam PersonalDataInterface.TYPE type)
             throws IllegalAccessException, EmptyStringException {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("name", name);
 
-        if ("hal".equalsIgnoreCase(name) || "david".equalsIgnoreCase(name)) {
-            PersonalDataInterface typeOfData = type.equals("name") ? new Names() : new Surnames();
-            modelAndView.setViewName(annotationAndFieldValues.resolveTestAnnotationValueFromField(name, typeOfData));
-            modelAndView.addObject("responseString", annotationAndFieldValues.resolveNamesFieldValue(name, typeOfData));
-        }
-
-        if ("johny".equalsIgnoreCase(name)) {
-            modelAndView.setStatus(HttpStatus.I_AM_A_TEAPOT);
-            modelAndView.setViewName("error-418");
-            modelAndView.addObject("responseString", teapotService.getMessage());
-//            request.setAttribute("responseString", teapotService.getMessage());
+        RedirectStrategy strategy = strategies.stream().filter(s -> s.supports(name)).findFirst().get();
+        try {
+            strategy.execute(name, modelAndView, type);
+        } catch (EmptyStringException e) {
+           modelAndView.setViewName("errorView");
+        } catch (IllegalAccessException e) {
+            modelAndView.setViewName("errorView");
         }
 
         return modelAndView;

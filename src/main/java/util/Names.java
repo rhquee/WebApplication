@@ -6,4 +6,5 @@ public class Names implements PersonalDataInterface {
 
     @Test(value = "davidView")
     private String david = "David here";
+
 }
