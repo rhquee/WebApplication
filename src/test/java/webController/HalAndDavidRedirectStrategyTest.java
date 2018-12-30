@@ -15,7 +15,12 @@ public class HalAndDavidRedirectStrategyTest {
         assertTrue(strategy.supports("hal"));
         assertTrue(strategy.supports("david"));
         assertFalse(strategy.supports(null));
-        assertFalse(strategy.supports("dupa"));
+        assertFalse(strategy.supports("not"));
         assertFalse(strategy.supports(""));
+    }
+
+    @Test
+    public void executeHalOrDavid(){
+        //todo?
     }
 }

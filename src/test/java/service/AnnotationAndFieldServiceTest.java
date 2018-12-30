@@ -34,39 +34,46 @@ public class AnnotationAndFieldServiceTest {
     private Names names = new Names();
     private Surnames surnames = new Surnames();
 
+    @Test(expected = NoSuchFieldException.class)
+    public void resolveView_notExistingFieldValue() throws Exception {
+        service.resolveTestAnnotationValueFromField("not existing field", names);
+    }
+
+    @Test(expected = EmptyStringException.class)
+    public void resolveView_FieldValueEmptyString() throws Exception {
+        service.resolveTestAnnotationValueFromField("", names);
+    }
+
+    @Test(expected = EmptyStringException.class)
+    public void resolveView_FieldValueNull() throws Exception {
+        service.resolveTestAnnotationValueFromField(null, names);
+    }
+
     @Test
-    public void resolveView_VariousFieldValue() throws Exception {
-       // assertEquals("class doesn't have a field of a specified name", service.resolveTestAnnotationValueFromField("Zenek", names));
-        //assertEquals("error", service.resolveTestAnnotationValueFromField(null, names));
+    public void resolveView_VariousFieldValueFromScope() throws Exception {
         assertEquals("halView", service.resolveTestAnnotationValueFromField("hal", names));
         assertEquals("halView", service.resolveTestAnnotationValueFromField("hal", surnames));
+        assertEquals("davidView", service.resolveTestAnnotationValueFromField("david", surnames));
+        assertEquals("davidView", service.resolveTestAnnotationValueFromField("david", surnames));
+    }
+
+    @Test (expected = NoSuchFieldException.class)
+    public void resolveResponseString_NotExistResponseStringValue() throws Exception {
+        service.resolveNamesFieldValue("not exist", names);
     }
 
     @Test (expected = EmptyStringException.class)
-    public void resolveView_emptyFieldValue() throws Exception {
-        assertEquals("your string is empty", service.resolveTestAnnotationValueFromField("", names));
+    public void resolveResponseString_EmptyResponseStringValue() throws Exception {
+        service.resolveNamesFieldValue("", names);
     }
 
     @Test (expected = EmptyStringException.class)
-    public void resolveView_emptyFieldValue() throws Exception {
-        assertEquals("your string is empty", service.resolveTestAnnotationValueFromField("", names));
+    public void resolveResponseString_NullResponseStringValue() throws Exception {
+        service.resolveNamesFieldValue(null, names);
     }
 
-    @Test (expected = EmptyStringException.class)
-    public void resolveView_nullFieldValue() throws Exception {
-        assertEquals("your string is empty", service.resolveTestAnnotationValueFromField(null, names));
-    }
-
-    @Test (expected = NullPointerException.class)
-    public void resolveView_notExistingField() throws Exception {
-        assertEquals("your string is empty", service.resolveTestAnnotationValueFromField("not existing field", names));
-    }
-
-    @Test
-    public void resolveResponseString_VariousResponseStringValue() throws Exception {
-        assertEquals("field doesn't have an annotation of a specified name", service.resolveNamesFieldValue("", names));
-        assertEquals("not existing field value", service.resolveNamesFieldValue(null, names));
-        assertEquals("field doesn't have an annotation of a specified name", service.resolveNamesFieldValue("Zenek", names));
+        @Test
+        public void resolveResponseString_VariousResponseStringValueFromScope() throws Exception {
         assertEquals("My mind is going. I can feel it", service.resolveNamesFieldValue("hal", names));
         assertEquals("My Surname is Hal Brave", service.resolveNamesFieldValue("hal", surnames));
         assertEquals("David here", service.resolveNamesFieldValue("david", names));

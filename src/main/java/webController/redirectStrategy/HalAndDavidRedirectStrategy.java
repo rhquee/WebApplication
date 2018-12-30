@@ -6,6 +6,8 @@ import service.AnnotationAndFieldService;
 import util.EmptyStringException;
 import util.PersonalDataInterface;
 
+import java.nio.file.NoSuchFileException;
+
 @Service
 public class HalAndDavidRedirectStrategy implements RedirectStrategy {
 
@@ -16,13 +18,9 @@ public class HalAndDavidRedirectStrategy implements RedirectStrategy {
     }
 
     @Override
-    public void execute(String name, ModelAndView modelAndView, PersonalDataInterface.TYPE type) throws EmptyStringException, IllegalAccessException {
-        try {
+    public void execute(String name, ModelAndView modelAndView, PersonalDataInterface.TYPE type) throws EmptyStringException, IllegalAccessException, NoSuchFieldException {
             modelAndView.setViewName(service.resolveTestAnnotationValueFromField(name, type.get()));
             modelAndView.addObject("responseString", service.resolveNamesFieldValue(name, type.get()));
-        } catch (NoSuchFieldException e) {
-            modelAndView.setViewName("errorView");
         }
     }
-}
 

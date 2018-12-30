@@ -5,6 +5,6 @@ package util;
  */
 public class EmptyStringException extends Exception {
     public EmptyStringException() {
-        super("empty string error");
+        super("empty string");
     }
 }

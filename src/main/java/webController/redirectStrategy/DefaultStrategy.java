@@ -1,6 +1,7 @@
 package webController.redirectStrategy;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import util.EmptyStringException;
 import util.PersonalDataInterface;
@@ -16,11 +17,11 @@ public class DefaultStrategy implements RedirectStrategy {
     }
 
     @Override
-    public void execute(String name, ModelAndView modelAndView, PersonalDataInterface.TYPE type) throws EmptyStringException, IllegalAccessException {
-        try{
+    public void execute(String name, ModelAndView modelAndView, PersonalDataInterface.TYPE type) throws IllegalAccessException, EmptyStringException {
+        if (StringUtils.isEmpty(name)) {
+            throw new EmptyStringException();
+        }
         modelAndView.setViewName("hello");
-        modelAndView.addObject("responseString", "errorowy");
-    } catch(EmptyStringException e){
-    }
+        modelAndView.addObject("responseString", name);
     }
 }

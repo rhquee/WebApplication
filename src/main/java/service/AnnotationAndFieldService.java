@@ -22,16 +22,13 @@ public class AnnotationAndFieldService {
 
     }
 
-    public String resolveNamesFieldValue(String fieldName, PersonalDataInterface personalDataInterface) throws IllegalAccessException {
+    public String resolveNamesFieldValue(String fieldName, PersonalDataInterface personalDataInterface) throws IllegalAccessException, NoSuchFieldException, EmptyStringException {
         Class<?> clazz = personalDataInterface.getClass(); //obiekt Class
-        try {
-            Field field = clazz.getDeclaredField(fieldName); // pole
+        if(StringUtils.isEmpty(fieldName)){
+            throw new EmptyStringException();
+        }
+        Field field = clazz.getDeclaredField(fieldName); // pole
             field.setAccessible(true); //bo prywatne
             return (String) field.get(personalDataInterface);
-        } catch (NoSuchFieldException e) {
-            return "field doesn't have an annotation of a specified name";
-        } catch (NullPointerException e){
-            return "not existing field value";
-        }
     }
 }

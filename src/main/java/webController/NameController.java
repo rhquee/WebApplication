@@ -30,8 +30,7 @@ public class NameController {
     }
 
     @RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
-    public ModelAndView resolveIndexView()
-            throws IllegalAccessException {
+    public ModelAndView resolveIndexView() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         return modelAndView;
@@ -41,8 +40,7 @@ public class NameController {
     @RequestMapping(value = "/hello", method = RequestMethod.POST)
     public ModelAndView resolveNameView(
             @RequestParam String name,
-            @RequestParam PersonalDataInterface.TYPE type)
-            throws IllegalAccessException, EmptyStringException {
+            @RequestParam PersonalDataInterface.TYPE type) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("name", name);
 
@@ -50,17 +48,19 @@ public class NameController {
         try {
             strategy.execute(name, modelAndView, type);
         } catch (EmptyStringException e) {
-           modelAndView.setViewName("errorView");
+           modelAndView.setViewName("errorEmptyStringView");
         } catch (IllegalAccessException e) {
             modelAndView.setViewName("errorView");
+            modelAndView.addObject("responseErrorString", "currently executing method does not have access to the definition of the specified class");
+        } catch (NoSuchFieldException e) {
+            modelAndView.setViewName("errorView");
+            modelAndView.addObject("responseErrorString", "not existing field");
         }
-
         return modelAndView;
     }
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
-    public ModelAndView resolveNameView()
-            throws IllegalAccessException {
+    public ModelAndView resolveNameView() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("name", "nieznajomy");
         modelAndView.setViewName("hello");

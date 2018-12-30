@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class NameControllerTest {
     private AnnotationAndFieldService  annotationAndFieldService = new AnnotationAndFieldService();
     private TeapotService teapotService = new TeapotService();
-    private NameController nameController = new NameController(annotationAndFieldService, teapotService);
+//    private NameController nameController = new NameController(annotationAndFieldService, teapotService);
 
     private MockMvc mockMvc;
 
@@ -45,13 +45,31 @@ public class NameControllerTest {
     }
 
     @Test
+    public void resolveNameView_showErrorPageForEmptyName() throws Exception {
+        this.mockMvc.perform(post("/hello")
+                .param("name", "")
+                .param("type", "name"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("errorEmptyStringView"));
+    }
+
+    @Test (expected = IllegalArgumentException.class )
+    public void resolveNameView_showErrorPageForNull() throws Exception {
+        this.mockMvc.perform(post("/hello")
+                .param("name", null)
+                .param("type", "name"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("errorEmptyStringView"));
+    }
+
+    @Test
     public void resolveNameView_showHelloPageForGivenName() throws Exception {
         this.mockMvc.perform(post("/hello")
-                .param("name", "Zenon")
+                .param("name", "Rafael")
                 .param("type", "name"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("hello"))
-                .andExpect(model().attribute("name", "Zenon"));
+                .andExpect(model().attribute("name", "Rafael"));
     }
 
     @Test
@@ -84,15 +102,6 @@ public class NameControllerTest {
                 .andExpect(model().attribute("responseString", "Hi, I'm teapot"));
     }
 
-    @Test
-    public void resolveView_showPageForEmptyString() throws Exception {
-        this.mockMvc.perform(post("/hello")
-                .param("name", "")
-                .param("type", "name"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("hello"))
-                .andExpect(model().attribute("name", ""));
-    }
 
     @Test
     public void resolveNameView_showHelloPageForUnnamedGetMethod() throws Exception {

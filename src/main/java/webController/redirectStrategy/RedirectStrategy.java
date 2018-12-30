@@ -11,5 +11,5 @@ public interface RedirectStrategy {
 
     boolean supports(String name);
 
-    void execute(String name, ModelAndView modelAndView, PersonalDataInterface.TYPE type) throws EmptyStringException, IllegalAccessException;
+    void execute(String name, ModelAndView modelAndView, PersonalDataInterface.TYPE type) throws EmptyStringException, IllegalAccessException, NoSuchFieldException;
 }
