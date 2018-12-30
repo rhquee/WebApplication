@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import service.AnnotationAndFieldService;
+import util.EmptyStringException;
 import util.PersonalDataInterface;
 import webController.redirectStrategy.HalAndDavidRedirectStrategy;
 import webController.redirectStrategy.RedirectStrategy;
@@ -23,7 +24,7 @@ import static util.PersonalDataInterface.TYPE.surname;
 public class HalAndDavidRedirectStrategyTest {
 
     RedirectStrategy strategy = new HalAndDavidRedirectStrategy();
-    AnnotationAndFieldService service = new AnnotationAndFieldService();
+    //AnnotationAndFieldService service = new AnnotationAndFieldService();
 
     @Test
     public void supportsHalOrDavid() {
@@ -34,14 +35,28 @@ public class HalAndDavidRedirectStrategyTest {
         assertFalse(strategy.supports(""));
     }
 
-//    modelAndView.setViewName(service.resolveTestAnnotationValueFromField(name, type.get()));
-//            modelAndView.addObject("responseString", service.resolveNamesFieldValue(name, type.get()));
 
 //    @Test
-//    public void executeHalOrDavid(){
-//        assertEquals("My mind is going. I can feel it", service.resolveNamesFieldValue("hal", name));
-//        assertEquals("My Surname is Hal Brave", service.resolveNamesFieldValue("hal", surname));
-//        assertEquals("David here", service.resolveNamesFieldValue("david", name));
-//        assertEquals("David Smith here", service.resolveNamesFieldValue("david", surname));
+//    public void executeHalOrDavid() throws Exception {
+//        assertEquals("My mind is going. I can feel it", service.resolveNamesFieldValue("hal", PersonalDataInterface.TYPE.name.get()));
+//        assertEquals("My Surname is Hal Brave", service.resolveNamesFieldValue("hal", PersonalDataInterface.TYPE.surname.get()));
+//        assertEquals("David here", service.resolveNamesFieldValue("david", PersonalDataInterface.TYPE.surname.get()));
+//        assertEquals("David Smith here", service.resolveNamesFieldValue("david", PersonalDataInterface.TYPE.surname.get()));
 //    }
+//
+//    @Test(expected = NoSuchFieldException.class)
+//    public void executeHalOrDavid_notExistFieldValue() throws Exception {
+//        service.resolveNamesFieldValue("notExist", PersonalDataInterface.TYPE.name.get());
+//    }
+//
+//    @Test(expected = EmptyStringException.class)
+//    public void executeHalOrDavid_emptyString() throws Exception {
+//        service.resolveNamesFieldValue("", PersonalDataInterface.TYPE.name.get());
+//    }
+//
+//    @Test(expected = EmptyStringException.class)
+//    public void executeHalOrDavid_null() throws Exception {
+//        service.resolveNamesFieldValue(null, PersonalDataInterface.TYPE.name.get());
+//    }
+
 }

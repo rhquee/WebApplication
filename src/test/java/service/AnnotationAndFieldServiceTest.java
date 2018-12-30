@@ -36,7 +36,7 @@ public class AnnotationAndFieldServiceTest {
 
     @Test(expected = NoSuchFieldException.class)
     public void resolveView_notExistingFieldValue() throws Exception {
-        service.resolveTestAnnotationValueFromField("not existing field", names);
+        service.resolveTestAnnotationValueFromField("notExistingAnnotationValue", names);
     }
 
     @Test(expected = EmptyStringException.class)
@@ -59,7 +59,7 @@ public class AnnotationAndFieldServiceTest {
 
     @Test (expected = NoSuchFieldException.class)
     public void resolveResponseString_NotExistResponseStringValue() throws Exception {
-        service.resolveNamesFieldValue("not exist", names);
+        service.resolveNamesFieldValue("notExist", names);
     }
 
     @Test (expected = EmptyStringException.class)

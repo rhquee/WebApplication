@@ -1,5 +1,6 @@
 package webController.redirectStrategy;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,9 @@ import java.nio.file.NoSuchFileException;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class HalAndDavidRedirectStrategy implements RedirectStrategy {
 
+    @Autowired
     private AnnotationAndFieldService service;
+
     @Override
     public boolean supports(String name) {
         return "hal".equalsIgnoreCase(name) || "david".equalsIgnoreCase(name);
