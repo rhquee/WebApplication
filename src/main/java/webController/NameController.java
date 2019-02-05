@@ -1,11 +1,12 @@
 package webController;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import service.AnnotationAndFieldService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import service.TeapotService;
+import service.AnnotationAndFieldService;
 import util.EmptyStringException;
 import util.PersonalDataInterface;
 import webController.redirectStrategy.RedirectStrategy;
@@ -19,14 +20,12 @@ import java.util.List;
 public class NameController {
 
     private final AnnotationAndFieldService annotationAndFieldValues;
-    private final TeapotService teapotService;
     @Autowired
     private List<RedirectStrategy> strategies;
 
     @Autowired
-    public NameController(AnnotationAndFieldService annotationAndFieldValues, TeapotService teapotService) {
+    public NameController(AnnotationAndFieldService annotationAndFieldValues) {
         this.annotationAndFieldValues = annotationAndFieldValues;
-        this.teapotService = teapotService;
     }
 
     @RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)

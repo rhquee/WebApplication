@@ -1,34 +1,15 @@
 package service;
 
-import config.SpringRootConfig;
-import config.SpringWebConfig;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockServletContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 import util.EmptyStringException;
 import util.Names;
 import util.Surnames;
-import webController.NameController;
 
-import javax.servlet.ServletContext;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kfrak on 05.12.2018.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = {SpringRootConfig.class, SpringWebConfig.class})
 public class AnnotationAndFieldServiceTest {
     private AnnotationAndFieldService service = new AnnotationAndFieldService();
     private Names names = new Names();
@@ -72,8 +53,8 @@ public class AnnotationAndFieldServiceTest {
         service.resolveNamesFieldValue(null, names);
     }
 
-        @Test
-        public void resolveResponseString_VariousResponseStringValueFromScope() throws Exception {
+    @Test
+    public void resolveResponseString_VariousResponseStringValueFromScope() throws Exception {
         assertEquals("My mind is going. I can feel it", service.resolveNamesFieldValue("hal", names));
         assertEquals("My Surname is Hal Brave", service.resolveNamesFieldValue("hal", surnames));
         assertEquals("David here", service.resolveNamesFieldValue("david", names));

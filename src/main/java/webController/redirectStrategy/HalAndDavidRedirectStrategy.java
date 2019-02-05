@@ -9,8 +9,6 @@ import service.AnnotationAndFieldService;
 import util.EmptyStringException;
 import util.PersonalDataInterface;
 
-import java.nio.file.NoSuchFileException;
-
 @Service
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class HalAndDavidRedirectStrategy implements RedirectStrategy {
